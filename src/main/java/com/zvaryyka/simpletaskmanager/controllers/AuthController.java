@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthController {
-    //Todo создание контроллера для обработки запросов, связанные с авторизацией и регистрацией
+    //Todo создание контроллера для обработки запросов, связанные с авторизацией и регистрацией(almost done)
     private final RegistrationService registrationService;
     private final PersonValidator personValidator;
 

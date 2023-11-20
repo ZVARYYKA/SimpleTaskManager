@@ -5,7 +5,13 @@
     <title>Your task</title>
 </head>
 <body>
+<h1 th:text="${person.getName()}">Hello value</h1>
 <h1>Your task</h1>
+<div th:each="task: ${person.getTasks()}">
+    <a
+            th:text="${task.getTask()}">task</a>
+    <br>
+</div>
 <!--TODO создание страницы task для работой с задачами-->
 </body>
 </html>

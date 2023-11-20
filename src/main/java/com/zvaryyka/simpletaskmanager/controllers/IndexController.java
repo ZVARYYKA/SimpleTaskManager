@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     @GetMapping("/index")
     public String mainPage() {
+
         return "main/index";
     }
     //TODO создание контроллера для обработки запросов на основную страницу
