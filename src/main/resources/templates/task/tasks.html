@@ -7,11 +7,33 @@
 <body>
 <h1 th:text="${person.getName()}">Hello value</h1>
 <h1>Your task</h1>
-<div th:each="task: ${person.getTasks()}">
+<div th:each="personTask: ${person.getTasks()}">
     <a
-            th:text="${task.getTask()}">task</a>
+            th:text="${personTask.getTask()}">task</a>
+    <form th:method="DELETE" th:action="@{/deleteTask/{id}(id=${personTask.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+    <form th:method="PATCH" th:action="@{/editTask/{id}(id=${personTask.getId()})}" th:object="${editTask}">
+
+        <label for="task12"></label>
+        <input type="text" th:field="*{task}" id="task12"/>
+        <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
+        <br/>
+        <input type="submit" value="Edited task!"/>
+    </form>
     <br>
 </div>
+<hr>
+
+<form th:method="POST" th:action="@{/createTask}" th:object="${taskForAdd}">
+
+    <label for="task"></label>
+    <input type="text" th:field="*{task}" id="task"/>
+    <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
+    <br/>
+    <input type="submit" value="Create new task!"/>
+</form>
+
 <!--TODO создание страницы task для работой с задачами-->
 </body>
 </html>
