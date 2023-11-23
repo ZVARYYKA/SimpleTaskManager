@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Your task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .edit-form {
+            display: none; /* Скрыть форму по умолчанию */
+        }
+    </style>
 </head>
 <body>
 <h1 th:text="${person.getName()}">Hello value</h1>
 <h1>Your task</h1>
 <div th:each="personTask: ${person.getTasks()}">
-    <a
-            th:text="${personTask.getTask()}">task</a>
+    <a th:text="${personTask.getTask()}">task</a>
+    <button onclick="showEditForm(this)">Edit</button> <!-- Передаем ссылку на кнопку в функцию -->
+
     <form th:method="DELETE" th:action="@{/deleteTask/{id}(id=${personTask.getId()})}">
         <input type="submit" value="Delete"/>
     </form>
-    <form th:method="PATCH" th:action="@{/editTask/{id}(id=${personTask.getId()})}" th:object="${editTask}">
 
+    <form class="edit-form" th:method="PATCH" th:action="@{/editTask/{id}(id=${personTask.getId()})}" th:object="${editTask}">
         <label for="task12"></label>
         <input type="text" th:field="*{task}" id="task12"/>
         <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
@@ -26,7 +34,6 @@
 <hr>
 
 <form th:method="POST" th:action="@{/createTask}" th:object="${taskForAdd}">
-
     <label for="task"></label>
     <input type="text" th:field="*{task}" id="task"/>
     <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
@@ -34,6 +41,9 @@
     <input type="submit" value="Create new task!"/>
 </form>
 
-<!--TODO создание страницы task для работой с задачами-->
+<script src="/script.js">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

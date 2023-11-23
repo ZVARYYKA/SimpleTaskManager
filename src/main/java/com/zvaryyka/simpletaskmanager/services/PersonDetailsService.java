@@ -32,4 +32,5 @@ public class PersonDetailsService implements UserDetailsService {
     public Optional<Person> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
+
 }

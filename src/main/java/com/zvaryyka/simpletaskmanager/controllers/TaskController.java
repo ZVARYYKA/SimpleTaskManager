@@ -6,6 +6,7 @@ import com.zvaryyka.simpletaskmanager.services.PersonDetailsService;
 import com.zvaryyka.simpletaskmanager.services.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +27,7 @@ public class TaskController {
 
     @GetMapping("/task")
     public String userTask(Principal principal, Model model) {
-        Person person = personDetailsService.findByLogin(principal.getName()).stream().findFirst().orElse(null);
+        Person person =getCurrentPerson(principal);
         person.getTasks();
         model.addAttribute("person",person);
         model.addAttribute("taskForAdd",new Task());
@@ -38,7 +39,7 @@ public class TaskController {
     public String createNewTask(@ModelAttribute("taskForAdd")  Task taskForAdd,Principal principal, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return "task/tasks";
-        Person person = personDetailsService.findByLogin(principal.getName()).stream().findFirst().orElse(null);
+        Person person = getCurrentPerson(principal);
         taskForAdd.setUser(person);
         taskService.save(taskForAdd);
         return "redirect:/task";
@@ -48,7 +49,7 @@ public class TaskController {
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
             return "task/tasks";
-        Person person = personDetailsService.findByLogin(principal.getName()).stream().findFirst().orElse(null);
+        Person person = getCurrentPerson(principal);
         editTask.setUser(person);
         taskService.update(id, editTask);
         return "redirect:/task";
@@ -58,6 +59,10 @@ public class TaskController {
     public String delete(@PathVariable("id") int id) {
         taskService.delete(id);
         return "redirect:/task";
+    }
+    private Person getCurrentPerson(Principal principal) {
+        return personDetailsService.findByLogin(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 //TODO Создание контроллера для обработки задач, связанные с задачником
 }
