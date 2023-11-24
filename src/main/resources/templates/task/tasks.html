@@ -12,34 +12,57 @@
     </style>
 </head>
 <body>
-<h1 th:text="${person.getName()}">Hello value</h1>
-<h1>Your task</h1>
-<div th:each="personTask: ${person.getTasks()}">
-    <a th:text="${personTask.getTask()}">task</a>
-    <button onclick="showEditForm(this)">Edit</button> <!-- Передаем ссылку на кнопку в функцию -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Simple TO-DO list</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Main</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tasks</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a class="btn btn-outline-primary me-2" href="#">Sign Up</a>
+                <a class="btn btn-outline-secondary" href="#">Log In</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1 th:text="${person.getName()}" class="my-4">Hello value</h1>
+    <h1>Your task</h1>
+    <div th:each="personTask: ${person.getTasks()}" class="mb-3 p-3 bg-light rounded">
+        <a th:text="${personTask.getTask()}" class="d-block fs-5">task</a>
+        <button onclick="showEditForm(this)" class="btn btn-secondary me-2 mt-2">Change</button> <!-- Передаем ссылку на кнопку в функцию -->
 
-    <form th:method="DELETE" th:action="@{/deleteTask/{id}(id=${personTask.getId()})}">
-        <input type="submit" value="Delete"/>
-    </form>
+        <form th:method="DELETE" th:action="@{/deleteTask/{id}(id=${personTask.getId()})}" class="d-inline">
+            <input type="submit" value="Delete" class="btn btn-danger mt-2"/>
+        </form>
 
-    <form class="edit-form" th:method="PATCH" th:action="@{/editTask/{id}(id=${personTask.getId()})}" th:object="${editTask}">
-        <label for="task12"></label>
-        <input type="text" th:field="*{task}" id="task12"/>
+        <form class="edit-form mt-2" th:method="PATCH" th:action="@{/editTask/{id}(id=${personTask.getId()})}" th:object="${editTask}">
+            <label for="task12"></label>
+            <input type="text" th:field="*{task}" id="task12" class="form-control"/>
+            <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
+            <br/>
+            <input type="submit" value="Edited task!" class="btn btn-success"/>
+        </form>
+        <hr>
+    </div>
+
+    <form th:method="POST" th:action="@{/createTask}" th:object="${taskForAdd}" class="mb-5">
+        <label for="task"></label>
+        <input type="text" th:field="*{task}" id="task" class="form-control"/>
         <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
         <br/>
-        <input type="submit" value="Edited task!"/>
+        <input type="submit" value="Create new task!" class="btn btn-primary"/>
     </form>
-    <br>
 </div>
-<hr>
-
-<form th:method="POST" th:action="@{/createTask}" th:object="${taskForAdd}">
-    <label for="task"></label>
-    <input type="text" th:field="*{task}" id="task"/>
-    <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
-    <br/>
-    <input type="submit" value="Create new task!"/>
-</form>
 
 <script src="/script.js">
 </script>
