@@ -42,7 +42,7 @@
                             .logoutSuccessUrl("/login") // Указание URL для перенаправления после успешного выхода
                             .permitAll()
                     );
-            //TODO logout не работает, надо решить проблему
+            //TODO logout не работает, надо решить проблему аааа
 
             return http.build();
         }
