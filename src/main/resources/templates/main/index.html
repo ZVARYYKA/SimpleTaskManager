@@ -8,7 +8,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Simple TO-DO list</a>
+        <a class="navbar-brand" href="/index">Simple TO-DO list</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,13 +21,13 @@
                     <a class="nav-link" href="#">Tasks</a>
                 </li>
             </ul>
-            <div class="d-flex" th:if ="person == null">
-                <a class="btn btn-outline-primary me-2" href="#">Sign Up</a>
-                <a class="btn btn-outline-secondary" href="#">Log In</a>
+            <div class="d-flex" th:if="${person.getName() == null}">
+                <a class="btn btn-outline-primary me-2" href="/registration">Sign Up</a>
+                <a class="btn btn-outline-secondary" href="/login">Log In</a>
             </div>
-            <div class="d-flex" th:if ="person != null">
-                <a th:text = "'Hello, ' + ${person.getName()}"></a>
-                <a class="btn btn-outline-secondary" href="#">Logout</a>
+            <div class="d-flex" th:if="${person.getName() != null}">
+                <a th:text = "'Hello, ' + ${person.name}" class="btn btn-outline-primary me-1" >Person name</a>
+                <a class="btn btn-outline-secondary" href="/logout">Logout</a>
             </div>
         </div>
     </div>

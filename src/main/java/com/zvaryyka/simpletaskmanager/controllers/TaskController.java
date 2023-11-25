@@ -61,8 +61,14 @@ public class TaskController {
         return "redirect:/task";
     }
     private Person getCurrentPerson(Principal principal) {
-        return personDetailsService.findByLogin(principal.getName())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if(principal == null) {
+            return new Person();
+        }
+        else {
+            return personDetailsService.findByLogin(principal.getName())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        }
+
     }
 //TODO Создание контроллера для обработки задач, связанные с задачником
 }

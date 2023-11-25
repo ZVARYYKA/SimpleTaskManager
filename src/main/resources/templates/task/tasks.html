@@ -28,14 +28,13 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <a class="btn btn-outline-primary me-2" href="#">Sign Up</a>
-                <a class="btn btn-outline-secondary" href="#">Log In</a>
+                <a th:text = "'Hello, ' + ${person.name}" class="btn btn-outline-primary me-1" >Person name</a>
+                <a class="btn btn-outline-secondary" href="/logout">Logout</a>
             </div>
         </div>
     </div>
 </nav>
 <div class="container">
-    <h1 th:text="${person.getName()}" class="my-4">Hello value</h1>
     <h1>Your task</h1>
     <div th:each="personTask: ${person.getTasks()}" class="mb-3 p-3 bg-light rounded">
         <a th:text="${personTask.getTask()}" class="d-block fs-5">task</a>

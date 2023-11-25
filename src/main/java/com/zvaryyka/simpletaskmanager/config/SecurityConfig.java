@@ -34,10 +34,15 @@
                             .anyRequest().authenticated()
                     )
                     .formLogin((form) -> form
-                            .loginPage("/login").loginProcessingUrl("/process_login")
+                            .loginPage("/login").loginProcessingUrl("/process_login").defaultSuccessUrl("/task", true)
                             .permitAll()
                     )
-                    .logout((logout) -> logout.permitAll());
+                    .logout((logout) -> logout
+                            .logoutUrl("/logout") // Указание URL для выхода из системы
+                            .logoutSuccessUrl("/login") // Указание URL для перенаправления после успешного выхода
+                            .permitAll()
+                    );
+            //TODO logout не работает, надо решить проблему
 
             return http.build();
         }

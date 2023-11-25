@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @Controller
 public class AuthController {
     //Todo создание контроллера для обработки запросов, связанные с авторизацией и регистрацией(almost done)
@@ -24,13 +26,20 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String loginPage() {
-        return "auth/login";
+    public String loginPage(Principal principal) {
+        if (principal != null)
+            return "util/error_login";
+        else
+            return "auth/login";
     }
 
-    @GetMapping("/registration")
-    public String registrationPage(@ModelAttribute("person") Person person) {
-        return "auth/reg";
+
+        @GetMapping("/registration")
+    public String registrationPage(@ModelAttribute("person") Person person, Principal principal) {
+        if (principal != null)
+            return "util/error_reg";
+        else
+            return "auth/reg";
     }
 
     @PostMapping("/registration")
