@@ -10,7 +10,7 @@ import org.springframework.validation.Errors;
 
 @Component
 public class PersonValidator  {
-    //TODO валидация при регистрации
+
     private final PersonDetailsService personDetailsService;
 
     @Autowired

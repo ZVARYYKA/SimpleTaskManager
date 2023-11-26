@@ -15,7 +15,7 @@ import java.security.Principal;
 
 @Controller
 public class AuthController {
-    //Todo создание контроллера для обработки запросов, связанные с авторизацией и регистрацией(almost done)
+
     private final RegistrationService registrationService;
     private final PersonValidator personValidator;
 
