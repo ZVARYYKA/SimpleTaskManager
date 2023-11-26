@@ -10,25 +10,29 @@ import java.util.List;
 
 @Service
 public class TaskService {
-    //TODO добавление необходимых методов для работы с задачами в базе данных
+
     private final TaskRepository taskRepository;
 
     @Autowired
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
+
     public List<Task> findPersonTask(int id) {
         return taskRepository.findAllByUserId(id);
     }
+
     @Transactional
     public void save(Task task) {
         taskRepository.save(task);
     }
+
     @Transactional
-    public void update(int id,Task task) {
+    public void update(int id, Task task) {
         task.setId(id);
         taskRepository.save(task);
     }
+
     @Transactional
     public void delete(int id) {
         taskRepository.deleteById(id);

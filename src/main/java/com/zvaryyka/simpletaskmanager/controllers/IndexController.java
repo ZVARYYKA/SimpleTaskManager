@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 
@@ -23,8 +22,7 @@ public class IndexController {
     @GetMapping("/index")
     public String mainPageIndex(Principal principal, Model model) {
         Person person = getCurrentPerson(principal);
-        model.addAttribute("person",person);
-
+        model.addAttribute("person", person);
 
 
         return "main/index";
@@ -32,14 +30,13 @@ public class IndexController {
 
 
     private Person getCurrentPerson(Principal principal) {
-        if(principal == null) {
+        if (principal == null) {
             return new Person();
-        }
-        else {
+        } else {
             return personDetailsService.findByLogin(principal.getName())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }
 
     }
-    //TODO создание контроллера для обработки запросов на основную страницу
+
 }

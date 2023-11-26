@@ -9,22 +9,31 @@
         .edit-form {
             display: none; /* Скрыть форму по умолчанию */
         }
+
+         .fs-5 {
+             color: blue; /* Черный цвет текста */
+             font-size: 3em; /* Увеличение размера текста */
+             text-decoration: none; /* Убрать подчеркивание */
+
+
+         }
+
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Simple TO-DO list</a>
+        <a class="navbar-brand" href="/index">Simple TO-DO list</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Main</a>
+                    <a class="nav-link active" aria-current="page" href="/index">Main</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Tasks</a>
+                    <a class="nav-link" href="/task">Tasks</a>
                 </li>
             </ul>
             <div class="d-flex">
@@ -35,9 +44,9 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Your task</h1>
+    <h1  style="margin-top: 20px;" >Your task</h1>
     <div th:each="personTask: ${person.getTasks()}" class="mb-3 p-3 bg-light rounded">
-        <a th:text="${personTask.getTask()}" class="d-block fs-5">task</a>
+        <a th:text="${personTask.getTask()}" class="d-block fs-5">Task</a>
         <button onclick="showEditForm(this)" class="btn btn-secondary me-2 mt-2">Change</button> <!-- Передаем ссылку на кнопку в функцию -->
 
         <form th:method="DELETE" th:action="@{/deleteTask/{id}(id=${personTask.getId()})}" class="d-inline">
@@ -45,7 +54,7 @@
         </form>
 
         <form class="edit-form mt-2" th:method="PATCH" th:action="@{/editTask/{id}(id=${personTask.getId()})}" th:object="${editTask}">
-            <label for="task12"></label>
+            <label for="task12">Enter new task:</label>
             <input type="text" th:field="*{task}" id="task12" class="form-control"/>
             <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
             <br/>
@@ -53,9 +62,9 @@
         </form>
         <hr>
     </div>
-
+    <h1  style="margin-top: 20px;" >Create new task:</h1>
     <form th:method="POST" th:action="@{/createTask}" th:object="${taskForAdd}" class="mb-5">
-        <label for="task"></label>
+        <label for="task">Enter task:</label>
         <input type="text" th:field="*{task}" id="task" class="form-control"/>
         <div style="color:red" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">task Error</div>
         <br/>

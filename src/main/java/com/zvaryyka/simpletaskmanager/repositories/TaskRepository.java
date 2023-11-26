@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task,Integer> {
-    //Todo добавить методы если понадобятся
+public interface TaskRepository extends JpaRepository<Task, Integer> {
+
     List<Task> findAllByUserId(int id);
-    Task findById (int id);
+
+    Task findById(int id);
 }

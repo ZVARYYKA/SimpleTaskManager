@@ -34,7 +34,7 @@ public class AuthController {
     }
 
 
-        @GetMapping("/registration")
+    @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("person") Person person, Principal principal) {
         if (principal != null)
             return "util/error_reg";

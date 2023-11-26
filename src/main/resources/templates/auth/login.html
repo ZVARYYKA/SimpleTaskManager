@@ -8,37 +8,37 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Simple TO-DO list</a>
+        <a class="navbar-brand" href="/index">Simple TO-DO list</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Main</a>
+                    <a class="nav-link active" aria-current="page" href="/index">Main</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Tasks</a>
+                    <a class="nav-link" href="/task">Tasks</a>
                 </li>
             </ul>
             <div class="d-flex">
-                <a class="btn btn-outline-primary me-2" href="#">Sign Up</a>
-                <a class="btn btn-outline-secondary" href="#">Log In</a>
+                <a class="btn btn-outline-primary me-2" href="/registration">Sign Up</a>
+                <a class="btn btn-outline-secondary" href="/login">Log In</a>
             </div>
         </div>
     </div>
 </nav>
-<main class="container">
+<main class="container mt-3">
     <form name="f" method="post" action="/process_login" class="p-5 bg-light rounded">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         <div class="mb-3">
-            <label for="username" class="form-label">Введите имя пользователя: </label>
-            <input value="ZVARYYKA" type="text" name="username" id="username" class="form-control"/>
+            <label for="username" class="form-label">Enter login: </label>
+            <input  type="text" name="username" id="username" class="form-control"/>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Введите пароль: </label>
-            <input value="1234" type="password" name="password" id="password" class="form-control"/>
+            <label for="password" class="form-label">Enter password: </label>
+            <input  type="password" name="password" id="password" class="form-control"/>
         </div>
         <input type="submit" value="Login" class="btn btn-primary"/>
 

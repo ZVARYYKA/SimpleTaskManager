@@ -4,7 +4,6 @@ import com.zvaryyka.simpletaskmanager.models.Person;
 import com.zvaryyka.simpletaskmanager.models.Task;
 import com.zvaryyka.simpletaskmanager.services.PersonDetailsService;
 import com.zvaryyka.simpletaskmanager.services.TaskService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -27,25 +26,27 @@ public class TaskController {
 
     @GetMapping("/task")
     public String userTask(Principal principal, Model model) {
-        Person person =getCurrentPerson(principal);
+        Person person = getCurrentPerson(principal);
         person.getTasks();
-        model.addAttribute("person",person);
-        model.addAttribute("taskForAdd",new Task());
-        model.addAttribute("editTask",new Task());
+        model.addAttribute("person", person);
+        model.addAttribute("taskForAdd", new Task());
+        model.addAttribute("editTask", new Task());
         System.out.println(principal.getName());
         return "task/tasks";
     }
+
     @PostMapping("/createTask")
-    public String createNewTask(@ModelAttribute("taskForAdd")  Task taskForAdd,Principal principal, BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
+    public String createNewTask(@ModelAttribute("taskForAdd") Task taskForAdd, Principal principal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
             return "task/tasks";
         Person person = getCurrentPerson(principal);
         taskForAdd.setUser(person);
         taskService.save(taskForAdd);
         return "redirect:/task";
     }
+
     @PostMapping("/editTask/{id}")
-    public String update(@ModelAttribute("editTask")  Task editTask,Principal principal, BindingResult bindingResult,
+    public String update(@ModelAttribute("editTask") Task editTask, Principal principal, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
             return "task/tasks";
@@ -60,11 +61,11 @@ public class TaskController {
         taskService.delete(id);
         return "redirect:/task";
     }
+
     private Person getCurrentPerson(Principal principal) {
-        if(principal == null) {
+        if (principal == null) {
             return new Person();
-        }
-        else {
+        } else {
             return personDetailsService.findByLogin(principal.getName())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         }

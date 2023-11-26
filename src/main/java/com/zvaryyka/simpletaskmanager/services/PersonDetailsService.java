@@ -29,6 +29,7 @@ public class PersonDetailsService implements UserDetailsService {
 
         return new PersonDetails(person.get());
     }
+
     public Optional<Person> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
